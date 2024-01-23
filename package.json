@@ -6,8 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
-    },
+    "lint": "next lint",
+    "server": "npx json-server -p 4000 --watch src/api/data/db.json"
+  },
   "dependencies": {
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.3",
@@ -15,6 +16,8 @@
     "@hookform/resolvers": "^3.3.4",
     "@mui/material": "^5.15.5",
     "@mui/material-nextjs": "^5.15.6",
+    "axios": "^1.6.5",
+    "json-server": "^0.17.4",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18",
