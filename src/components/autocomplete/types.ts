@@ -15,11 +15,11 @@ export type MuiAutocompletePropsType = MuiAutocompleteProps<
 >
 
 export interface AutocompleteProps {
-	autoFocus?: boolean
 	fetchOptions: () => void
 	label: string
 	name: string
 	options?: Option[]
+	placeholder?: string
 }
 
 export type GetOptionLabelType = MuiAutocompletePropsType['getOptionLabel']

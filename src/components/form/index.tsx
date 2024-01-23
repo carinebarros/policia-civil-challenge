@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { Button } from '@mui/material'
+import { Button, Grid } from '@mui/material'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { getPeople } from '@/api/requests'
@@ -25,7 +25,11 @@ const Form = () => {
 		},
 		resolver: yupResolver(schema),
 	})
-	const { handleSubmit, register } = methods
+	const {
+		handleSubmit,
+		register,
+		formState: { isSubmitting, isValidating },
+	} = methods
 
 	const fetchOptions = () => {
 		getPeople().then((res) => {
@@ -48,31 +52,50 @@ const Form = () => {
 	return (
 		<FormProvider {...methods}>
 			<form onSubmit={onSubmit}>
-				<Autocomplete
-					label="Pessoa"
-					name="person"
-					options={personOptions}
-					fetchOptions={fetchOptions}
-					autoFocus
-				/>
+				<Grid container maxWidth={400} spacing={4}>
+					<Grid item xs={12}>
+						<Autocomplete
+							label="Pessoa"
+							name="person"
+							options={personOptions}
+							fetchOptions={fetchOptions}
+							placeholder="Selecione uma opção"
+						/>
+					</Grid>
 
-				<TextField
-					label="Telefone"
-					{...register('phone')}
-					type="tel"
-					fullWidth
-				/>
+					<Grid item xs={12}>
+						<TextField
+							autoFocus={false}
+							label="Telefone"
+							{...register('phone')}
+							type="tel"
+							fullWidth
+							placeholder="85 912345678"
+						/>
+					</Grid>
 
-				<TextField
-					label="E-mail"
-					{...register('email')}
-					type="email"
-					fullWidth
-				/>
+					<Grid item xs={12}>
+						<TextField
+							label="E-mail"
+							{...register('email')}
+							type="email"
+							fullWidth
+							placeholder="exemplo@email.com"
+						/>
+					</Grid>
 
-				<Button fullWidth variant="contained" size="large" type="submit">
-					Enviar
-				</Button>
+					<Grid item xs={12}>
+						<Button
+							fullWidth
+							variant="contained"
+							size="large"
+							type="submit"
+							disabled={isSubmitting || isValidating}
+						>
+							Enviar
+						</Button>
+					</Grid>
+				</Grid>
 			</form>
 		</FormProvider>
 	)

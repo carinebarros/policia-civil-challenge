@@ -9,8 +9,8 @@ const INVALID_EMAIL = 'E-mail inválido'
 export const schema: yup.ObjectSchema<FormData> = yup.object().shape({
 	person: yup
 		.object({
-			label: yup.string().required(),
-			value: yup.number().positive().integer().required(),
+			label: yup.string().required(REQUIRED_ERROR),
+			value: yup.number().positive().integer().required(REQUIRED_ERROR),
 		})
 		.required(REQUIRED_ERROR),
 	phone: yup

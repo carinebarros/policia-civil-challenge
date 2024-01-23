@@ -11,14 +11,13 @@ import {
 	IsOptionEqualToValueType,
 	RenderInputType,
 } from './types'
-import { autocompleteStyle } from './styles'
 
 const Autocomplete = ({
-	autoFocus,
 	fetchOptions,
 	label,
 	name,
 	options = [],
+	placeholder,
 	...props
 }: AutocompleteProps) => {
 	const { control } = useFormContext()
@@ -59,6 +58,7 @@ const Autocomplete = ({
 				{...params}
 				name={name}
 				label={label}
+				placeholder={placeholder}
 				InputProps={{
 					...params.InputProps,
 					endAdornment: (
@@ -70,7 +70,7 @@ const Autocomplete = ({
 				}}
 			/>
 		),
-		[label, loading, name]
+		[label, loading, name, placeholder]
 	)
 
 	return (
@@ -90,10 +90,10 @@ const Autocomplete = ({
 					noOptionsText="Nenhuma opção"
 					getOptionLabel={getOptionLabel}
 					isOptionEqualToValue={isOptionEqualToValue}
-					sx={autocompleteStyle}
 					onChange={(event, data) => {
 						field.onChange(data)
 					}}
+					loadingText="Carregando..."
 					{...props}
 				/>
 			)}

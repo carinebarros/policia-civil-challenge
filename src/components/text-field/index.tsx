@@ -17,10 +17,8 @@ type TextFieldRef =
 	| undefined
 
 const TextField = forwardRef(
-	({ name, ...props }: TextFieldProps, ref: TextFieldRef) => {
+	({ name, placeholder, ...props }: TextFieldProps, ref: TextFieldRef) => {
 		const { register, formState } = useFormContext()
-
-		console.log({ errors: formState.errors })
 
 		const errorMessage = useMemo(
 			() => formState.errors[name]?.message?.toString(),
@@ -29,7 +27,17 @@ const TextField = forwardRef(
 
 		return (
 			<div>
-				<MuiTextField {...register(name)} {...props} ref={ref} />
+				<MuiTextField
+					{...register(name)}
+					{...props}
+					ref={ref}
+					error={Boolean(errorMessage)}
+					InputLabelProps={{
+						shrink: Boolean(placeholder),
+					}}
+					variant="standard"
+					placeholder={placeholder}
+				/>
 				{errorMessage && <ErrorMessage message={errorMessage} />}
 			</div>
 		)
