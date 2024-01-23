@@ -5,6 +5,8 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { Button } from '@mui/material'
 import { yupResolver } from '@hookform/resolvers/yup'
 
+import { getPeople } from '@/api/requests'
+
 import Autocomplete from '@/components/autocomplete'
 import type { Option } from '@/components/autocomplete/types'
 import TextField from '@/components/text-field'
@@ -13,7 +15,7 @@ import { FormData } from './types'
 import { schema } from './schema'
 
 const Form = () => {
-	const [personOptions, setPersonOptions] = useState<Option[] | []>()
+	const [personOptions, setPersonOptions] = useState<Option[]>()
 
 	const methods = useForm<FormData>({
 		defaultValues: {
@@ -26,8 +28,11 @@ const Form = () => {
 	const { handleSubmit, register } = methods
 
 	const fetchOptions = () => {
-		// TODO: Integrate with BE
-		setPersonOptions([])
+		getPeople().then((res) => {
+			setPersonOptions(() =>
+				res.map((person) => ({ value: person.id, label: person.name }))
+			)
+		})
 	}
 
 	const onSubmit = handleSubmit((data) => {
