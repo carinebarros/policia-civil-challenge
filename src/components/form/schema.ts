@@ -1,10 +1,9 @@
-import { PHONE_REGEX } from '@/utils/regex'
 import * as yup from 'yup'
-import { FormData } from './types'
 
-const REQUIRED_ERROR = 'Campo obrigatório'
-const INVALID_PHONE = 'Telefone inválido'
-const INVALID_EMAIL = 'E-mail inválido'
+import { PHONE_REGEX } from '@/utils/regex'
+import { INVALID_EMAIL, INVALID_PHONE, REQUIRED_ERROR } from '@/utils/form'
+
+import { FormData } from './types'
 
 export const schema: yup.ObjectSchema<FormData> = yup.object().shape({
 	person: yup
